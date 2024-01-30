@@ -8,7 +8,6 @@ import (
 	"image/gif"
 	"math"
 
-	"github.com/disintegration/imaging"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -132,7 +131,7 @@ type frameData struct {
 func resizeRoutine(data frameData, destImage *gif.GIF) func() error {
 	return func() error {
 		// 重ねたフレームを縮小
-		fittedImage := imaging.Resize(data.tempCanvas, data.resizeWidth, data.resizeHeight, mks2013Filter)
+		fittedImage := data.tempCanvas
 
 		// destBoundsに合わせて、縮小されたイメージを切り抜き
 		destFrame := image.NewPaletted(data.destBounds, data.srcPalette)
