@@ -16,6 +16,14 @@ linters:
     - godot
     - nolintlint
 
+issues:
+  exclude-use-default: false
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - containedctx
+        - gochecknoglobals
+
 linters-settings:
   funlen:
     lines: -1
@@ -30,6 +38,3 @@ linters-settings:
     ignoreSigs:
       - (*golang.org/x/sync/errgroup.Group).Wait(
       - (*golang.org/x/sync/semaphore.Weighted).Acquire(
-
-issues:
-  exclude-use-default: false
