@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+builds:
+  - skip: true
+archives:
+  - format: binary
+checksum:
+  disable: true
+changelog:
+  groups:
+    - title: Features
+      regexp: "^.*?feat:.+$"
+      order: 0
+    - title: Bug fixes
+      regexp: "^.*?fix:.+$"
+      order: 1
+    - title: Dependency
+      regexp: "^.*?(deps):.+$"
+      order: 2
+    - title: Others
+      order: 999
