@@ -49,7 +49,7 @@ func (p *processor) resize(ctx context.Context, src *gif.GIF, width, height int)
 		// 	When resizing a frame with transparent pixels, the edge pixels may be
 		//  mixed with the transparent color and produce black jagged noise
 		// 	To avoid the noise, pile up frames on this canvas before resizing
-		tempCanvas = image.NewNRGBA(image.Rect(0, 0, srcHeight, srcWidth))
+		tempCanvas = image.NewNRGBA(image.Rect(0, 0, srcWidth, srcHeight))
 
 		// Uniform image of background color
 		// nolint:forcetypeassert
