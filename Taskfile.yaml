@@ -1,0 +1,27 @@
+version: 3
+
+tasks:
+  lint:
+    desc: Lint
+    cmds:
+      - golangci-lint run
+  format:
+    desc: Format
+    cmds:
+      - go mod tidy
+      - goimports -l -w .
+      - gofumpt -l -w .
+  build:
+    desc: Build
+    cmds:
+      - go build
+  test:
+    desc: Test
+    cmds:
+      - go test -v ./...
+  test-gen:
+    desc: Generate Test Data
+    cmds:
+      - cmd: go test ./... -overwrite > /dev/null
+        ignore_error: true
+      - task: test
