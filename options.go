@@ -1,20 +1,7 @@
 package resigif
 
-import "runtime"
-
-type Option func(*option)
-
-type option struct {
-	aspectRatio   aspectRatioOption
-	resizeFunc    ImageResizeFunc
-	parallelLimit int
-}
-
-var defaultOption = &option{
-	aspectRatio:   Maintain,
-	resizeFunc:    defaultImageResizeFunc,
-	parallelLimit: runtime.NumCPU(),
-}
+// Option is option for GIF resizing1
+type Option func(*processor)
 
 type aspectRatioOption int
 
@@ -29,7 +16,7 @@ const (
 //
 //	default: Maintain
 func WithAspectRatio(aspectRatio aspectRatioOption) Option {
-	return func(o *option) {
+	return func(o *processor) {
 		o.aspectRatio = aspectRatio
 	}
 }
@@ -38,7 +25,7 @@ func WithAspectRatio(aspectRatio aspectRatioOption) Option {
 //
 //	default: using draw.CatmullRom
 func WithImageResizeFunc(resizeFunc ImageResizeFunc) Option {
-	return func(o *option) {
+	return func(o *processor) {
 		o.resizeFunc = resizeFunc
 	}
 }
@@ -48,7 +35,7 @@ func WithImageResizeFunc(resizeFunc ImageResizeFunc) Option {
 //	ignores limit if limit <= 0
 //	default: runtime.NumCPU()
 func WithParallel(limit int) Option {
-	return func(o *option) {
+	return func(o *processor) {
 		if limit > 0 {
 			o.parallelLimit = limit
 		}
