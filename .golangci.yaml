@@ -1,0 +1,35 @@
+linters:
+  enable-all: true
+  disable:
+    - deadcode # deprecated
+    - exhaustivestruct # deprecated
+    - golint # deprecated
+    - ifshort # deprecated
+    - interfacer # deprecated
+    - maligned # deprecated
+    - nosnakecase # deprecated
+    - scopelint # deprecated
+    - structcheck # deprecated
+    - varcheck # deprecated
+    - depguard
+    - dogsled
+    - godot
+    - nolintlint
+
+linters-settings:
+  funlen:
+    lines: -1
+  lll:
+    line-length: 150
+  varnamelen:
+    ignore-names:
+      - tt
+      - i
+      - eg
+  wrapcheck:
+    ignoreSigs:
+      - (*golang.org/x/sync/errgroup.Group).Wait(
+      - (*golang.org/x/sync/semaphore.Weighted).Acquire(
+
+issues:
+  exclude-use-default: false
