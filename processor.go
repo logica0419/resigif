@@ -180,7 +180,7 @@ func (p *processor) resizeFrame(
 
 		// Crop image to fit destBounds and put it into dst
 		dst.Image[index] = image.NewPaletted(destBounds, srcPalette)
-		draw.Draw(dst.Image[index], destBounds, fittedImage.SubImage(destBounds), destBounds.Min, draw.Src)
+		draw.Draw(dst.Image[index], destBounds, fittedImage, destBounds.Min, draw.Src)
 
 		return nil
 	}
