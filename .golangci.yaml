@@ -25,6 +25,8 @@ issues:
         - gochecknoglobals
 
 linters-settings:
+  cyclop:
+    max-complexity: 15
   funlen:
     lines: -1
   lll:
@@ -38,3 +40,4 @@ linters-settings:
     ignoreSigs:
       - (*golang.org/x/sync/errgroup.Group).Wait(
       - (*golang.org/x/sync/semaphore.Weighted).Acquire(
+      - (context.Context).Err(

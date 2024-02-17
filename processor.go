@@ -74,6 +74,13 @@ func (p *processor) resize(ctx context.Context, src *gif.GIF, width, height int)
 	eg, ctx = errgroup.WithContext(ctx)
 
 	for i, srcFrame := range src.Image {
+		// Check if the context is done
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		default:
+		}
+
 		// Frame size and position
 		//	This may be different from the size of the GIF image
 		srcBounds := srcFrame.Bounds()
