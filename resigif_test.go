@@ -132,12 +132,13 @@ func TestResize(t *testing.T) {
 			t.Parallel()
 
 			got, err := resigif.Resize(tt.args.ctx, mustOpenGif(t, tt.args.src), tt.args.width, tt.args.height, tt.args.opts...)
-			tt.assertion(t, err)
-			assert.Equal(t, mustOpenGif(t, tt.want), got)
 
 			if overWrite != nil && *overWrite {
 				mustEncodeGif(t, tt.want, got)
 			}
+
+			tt.assertion(t, err)
+			assert.Equal(t, mustOpenGif(t, tt.want), got)
 		})
 	}
 }
