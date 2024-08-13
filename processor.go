@@ -51,10 +51,6 @@ func (p *processor) resize(ctx context.Context, src *gif.GIF, width, height int)
 		// 	To avoid the noise, pile up frames on this canvas before resizing
 		tempCanvas = image.NewNRGBA(image.Rect(0, 0, srcWidth, srcHeight))
 
-		// Uniform image of background color
-		// nolint:forcetypeassert
-		bgColorUniform = image.NewUniform(src.Config.ColorModel.(color.Palette)[src.BackgroundIndex])
-
 		// Destination GIF image
 		dst = &gif.GIF{
 			Image:     make([]*image.Paletted, len(src.Image)),
@@ -111,9 +107,13 @@ func (p *processor) resize(ctx context.Context, src *gif.GIF, width, height int)
 		if src.Disposal[i] == gif.DisposalBackground {
 			// If the transparent color is in the frame palette, use it as the background color
 			r, g, b, a := srcFrame.Palette[srcFrame.Palette.Index(color.Transparent)].RGBA()
+
 			if r == 0 && g == 0 && b == 0 && a == 0 {
 				draw.Draw(tempCanvas, srcBounds, image.Transparent, image.Point{X: 0, Y: 0}, draw.Src)
-			} else {
+			} else if globalColorTable, ok := src.Config.ColorModel.(color.Palette); ok && int(src.BackgroundIndex) < len(globalColorTable) {
+				// Workaround to the GIF images with empty global color table
+				bgColorUniform := image.NewUniform(globalColorTable[src.BackgroundIndex])
+
 				draw.Draw(tempCanvas, srcBounds, bgColorUniform, image.Point{X: 0, Y: 0}, draw.Src)
 			}
 		}
