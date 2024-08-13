@@ -125,6 +125,18 @@ func TestResize(t *testing.T) {
 			want:      "frog_resized.gif",
 			assertion: require.NoError,
 		},
+		{
+			name: "success (surprised 正方形、空のGlobal Color Table)",
+			args: args{
+				ctx:    context.Background(),
+				src:    "surprised.gif",
+				width:  256,
+				height: 256,
+				opts:   nil,
+			},
+			want:      "surprised_resized.gif",
+			assertion: require.NoError,
+		},
 	}
 
 	for _, tt := range tests {
