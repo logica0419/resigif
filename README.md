@@ -71,47 +71,47 @@ func main() {
 - Aspect Ratio Preservation
   - You can choose from `Ignore` or `Maintain`
 
-  ```go
-  dstImg, err := resigif.Resize(
-    ctx,
-    srcImg,
-    width,
-    height,
-    resigif.WithAspectRatio(resigif.Maintain),
-  )
+```go
+dstImg, err := resigif.Resize(
+  ctx,
+  srcImg,
+  width,
+  height,
+  resigif.WithAspectRatio(resigif.Maintain),
+)
 
-  dstImg, err := resigif.Resize(
-    ctx,
-    srcImg,
-    width,
-    height,
-    resigif.WithAspectRatio(resigif.Ignore),
-  )
-  ```
+dstImg, err := resigif.Resize(
+  ctx,
+  srcImg,
+  width,
+  height,
+  resigif.WithAspectRatio(resigif.Ignore),
+)
+```
 
-- Changing resizing algorithm
+- Resizing algorithm
   - You can use you own resizing algorithm by implementing `ImageResizeFunc` interface and passing it to `WithImageResizeFunc()`
   - If you want to use `golang.org/x/image/draw.Scaler`, you can use `FromDrawScaler()` to convert it to `ImageResizeFunc`
 
-  ```go
-  dstImg, err := resigif.Resize(
-    ctx,
-    srcImg,
-    width,
-    height,
-    resigif.WithImageResizeFunc(resigif.FromDrawScaler(draw.BiLinear)),
-  )
-  ```
+```go
+dstImg, err := resigif.Resize(
+  ctx,
+  srcImg,
+  width,
+  height,
+  resigif.WithImageResizeFunc(resigif.FromDrawScaler(draw.BiLinear)),
+)
+```
 
 - Parallelism
-  - You can control the number of goroutines used for resizing by passing `WithParallel()`
+  - You can control the number of goroutine used for resizing by passing `WithParallel()`
 
-  ```go
-  dstImg, err := resigif.Resize(
-    ctx,
-    srcImg,
-    width,
-    height,
-    resigif.WithParallel(3),
-  )
-  ```
+```go
+dstImg, err := resigif.Resize(
+  ctx,
+  srcImg,
+  width,
+  height,
+  resigif.WithParallel(3),
+)
+```
