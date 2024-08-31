@@ -12,6 +12,7 @@ import (
 	"github.com/logica0419/resigif/testdata"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"golang.org/x/image/draw"
 )
 
 var overWrite = flag.Bool("overwrite", false, "overwrite test file")
@@ -72,7 +73,9 @@ func TestResize(t *testing.T) {
 				src:    "mushroom.gif",
 				width:  256,
 				height: 256,
-				opts:   nil,
+				opts: []resigif.Option{
+					resigif.WithAspectRatio(resigif.Ignore),
+				},
 			},
 			want:      "mushroom_resized.gif",
 			assertion: require.NoError,
@@ -84,7 +87,9 @@ func TestResize(t *testing.T) {
 				src:    "tooth.gif",
 				width:  256,
 				height: 256,
-				opts:   nil,
+				opts: []resigif.Option{
+					resigif.WithParallel(1),
+				},
 			},
 			want:      "tooth_resized.gif",
 			assertion: require.NoError,
@@ -96,7 +101,9 @@ func TestResize(t *testing.T) {
 				src:    "new_year.gif",
 				width:  256,
 				height: 256,
-				opts:   nil,
+				opts: []resigif.Option{
+					resigif.WithImageResizeFunc(resigif.FromDrawScaler(draw.BiLinear)),
+				},
 			},
 			want:      "new_year_resized.gif",
 			assertion: require.NoError,
