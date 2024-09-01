@@ -26,7 +26,9 @@ func WithAspectRatio(aspectRatio aspectRatioOption) Option {
 //	default: using draw.CatmullRom
 func WithImageResizeFunc(resizeFunc ImageResizeFunc) Option {
 	return func(o *processor) {
-		o.resizeFunc = resizeFunc
+		if resizeFunc != nil {
+			o.resizeFunc = resizeFunc
+		}
 	}
 }
 
