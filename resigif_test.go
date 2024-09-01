@@ -3,6 +3,7 @@ package resigif_test
 import (
 	"context"
 	"flag"
+	"image"
 	"image/gif"
 	"os"
 	"path/filepath"
@@ -143,6 +144,20 @@ func TestResize(t *testing.T) {
 			want:       "surprised_resized.gif",
 			errMatcher: its.Nil[error](),
 		},
+		{
+			name: "fail (error from ImageResizeFunc)",
+			args: args{
+				ctx:    context.Background(),
+				src:    "surprised.gif",
+				width:  256,
+				height: 256,
+				opts: []resigif.Option{resigif.WithImageResizeFunc(func(_ *image.NRGBA, _, _ int) (*image.NRGBA, error) {
+					return nil, os.ErrInvalid
+				})},
+			},
+			want:       "surprised_resized.gif",
+			errMatcher: its.Error(os.ErrInvalid),
+		},
 	}
 
 	for _, tt := range tests {
@@ -151,11 +166,16 @@ func TestResize(t *testing.T) {
 
 			got, err := resigif.Resize(tt.args.ctx, mustOpenGif(t, tt.args.src), tt.args.width, tt.args.height, tt.args.opts...)
 
-			if overWrite != nil && *overWrite {
+			if err != nil && overWrite != nil && *overWrite {
 				mustEncodeGif(t, tt.want, got)
 			}
 
 			tt.errMatcher.Match(err).OrError(t)
+
+			if err != nil {
+				return
+			}
+
 			its.DeepEqual(mustOpenGif(t, tt.want)).Match(got).OrError(t)
 		})
 	}
