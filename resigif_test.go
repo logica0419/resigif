@@ -10,8 +10,7 @@ import (
 
 	"github.com/logica0419/resigif"
 	"github.com/logica0419/resigif/testdata"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+	"github.com/youta-t/its"
 	"golang.org/x/image/draw"
 )
 
@@ -21,14 +20,14 @@ func mustOpenGif(t *testing.T, name string) *gif.GIF {
 	t.Helper()
 
 	file, err := testdata.FS.Open(name)
-	require.NoError(t, err)
+	its.Nil[error]().Match(err).OrFatal(t)
 
 	defer func() {
 		_ = file.Close()
 	}()
 
 	image, err := gif.DecodeAll(file)
-	require.NoError(t, err)
+	its.Nil[error]().Match(err).OrFatal(t)
 
 	return image
 }
@@ -37,14 +36,14 @@ func mustEncodeGif(t *testing.T, name string, image *gif.GIF) {
 	t.Helper()
 
 	file, err := os.OpenFile(filepath.Clean("testdata/"+name), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o600)
-	require.NoError(t, err)
+	its.Nil[error]().Match(err).OrFatal(t)
 
 	defer func() {
 		_ = file.Close()
 	}()
 
 	err = gif.EncodeAll(file, image)
-	require.NoError(t, err)
+	its.Nil[error]().Match(err).OrFatal(t)
 }
 
 func TestResize(t *testing.T) {
@@ -61,10 +60,10 @@ func TestResize(t *testing.T) {
 	}
 
 	tests := []struct {
-		name      string
-		args      args
-		want      string
-		assertion require.ErrorAssertionFunc
+		name       string
+		args       args
+		want       string
+		errMatcher its.Matcher[error]
 	}{
 		{
 			name: "success (mushroom 正方形、小サイズ)",
@@ -77,8 +76,8 @@ func TestResize(t *testing.T) {
 					resigif.WithAspectRatio(resigif.Ignore),
 				},
 			},
-			want:      "mushroom_resized.gif",
-			assertion: require.NoError,
+			want:       "mushroom_resized.gif",
+			errMatcher: its.Nil[error](),
 		},
 		{
 			name: "success (tooth 正方形、DisposalBackground)",
@@ -91,8 +90,8 @@ func TestResize(t *testing.T) {
 					resigif.WithParallel(1),
 				},
 			},
-			want:      "tooth_resized.gif",
-			assertion: require.NoError,
+			want:       "tooth_resized.gif",
+			errMatcher: its.Nil[error](),
 		},
 		{
 			name: "success (new_year 横長)",
@@ -105,8 +104,8 @@ func TestResize(t *testing.T) {
 					resigif.WithImageResizeFunc(resigif.FromDrawScaler(draw.BiLinear)),
 				},
 			},
-			want:      "new_year_resized.gif",
-			assertion: require.NoError,
+			want:       "new_year_resized.gif",
+			errMatcher: its.Nil[error](),
 		},
 		{
 			name: "success (miku 縦長、差分最適化)",
@@ -117,8 +116,8 @@ func TestResize(t *testing.T) {
 				height: 256,
 				opts:   nil,
 			},
-			want:      "miku_resized.gif",
-			assertion: require.NoError,
+			want:       "miku_resized.gif",
+			errMatcher: its.Nil[error](),
 		},
 		{
 			name: "success (frog 縦長、DisposalBackground + 背景色不整合)",
@@ -129,8 +128,8 @@ func TestResize(t *testing.T) {
 				height: 256,
 				opts:   nil,
 			},
-			want:      "frog_resized.gif",
-			assertion: require.NoError,
+			want:       "frog_resized.gif",
+			errMatcher: its.Nil[error](),
 		},
 		{
 			name: "success (surprised 正方形、空のGlobal Color Table)",
@@ -141,8 +140,8 @@ func TestResize(t *testing.T) {
 				height: 256,
 				opts:   nil,
 			},
-			want:      "surprised_resized.gif",
-			assertion: require.NoError,
+			want:       "surprised_resized.gif",
+			errMatcher: its.Nil[error](),
 		},
 	}
 
@@ -156,8 +155,8 @@ func TestResize(t *testing.T) {
 				mustEncodeGif(t, tt.want, got)
 			}
 
-			tt.assertion(t, err)
-			assert.Equal(t, mustOpenGif(t, tt.want), got)
+			tt.errMatcher.Match(err).OrError(t)
+			its.DeepEqual(mustOpenGif(t, tt.want)).Match(got).OrError(t)
 		})
 	}
 }
