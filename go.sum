@@ -1,5 +1,5 @@
-github.com/youta-t/its v0.5.1 h1:+4PKuU+gmcbFFe0+xuoB3qrQ46Ha/WwCgVrOuzJCn/g=
-github.com/youta-t/its v0.5.1/go.mod h1:BIW52yCMszkfw3y00YtIB5I5EP10+vVJFu3cV78DqlU=
+github.com/youta-t/its v0.5.2 h1:NtqF+yS8idQLzkXZuEJC0bD/cpHrDQKQyB+JRfI3mFs=
+github.com/youta-t/its v0.5.2/go.mod h1:BIW52yCMszkfw3y00YtIB5I5EP10+vVJFu3cV78DqlU=
 golang.org/x/image v0.20.0 h1:7cVCUjQwfL18gyBJOmYvptfSHS8Fb3YUDtfLIZ7Nbpw=
 golang.org/x/image v0.20.0/go.mod h1:0a88To4CYVBAHp5FXJm8o7QbUl37Vd85ply1vyD8auM=
 golang.org/x/mod v0.21.0 h1:vvrHzRwRfVKSiLrG+d4FMl/Qi4ukBCE6kZlTUkDYRT0=
