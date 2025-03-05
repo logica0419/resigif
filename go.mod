@@ -1,6 +1,8 @@
 module github.com/logica0419/resigif
 
-go 1.22.2
+go 1.23.0
+
+toolchain go1.24.1
 
 require (
 	github.com/youta-t/its v0.6.0
@@ -8,4 +10,4 @@ require (
 	golang.org/x/sync v0.11.0
 )
 
-require golang.org/x/mod v0.23.0 // indirect
+require golang.org/x/mod v0.24.0 // indirect
