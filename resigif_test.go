@@ -67,7 +67,7 @@ func TestResize(t *testing.T) {
 		errMatcher its.Matcher[error]
 	}{
 		{
-			name: "success (mushroom 正方形、小サイズ)",
+			name: "success (mushroom: square / small)",
 			args: args{
 				ctx:    context.Background(),
 				src:    "mushroom.gif",
@@ -81,7 +81,7 @@ func TestResize(t *testing.T) {
 			errMatcher: its.Nil[error](),
 		},
 		{
-			name: "success (tooth 正方形、DisposalBackground)",
+			name: "success (tooth: square、DisposalBackground)",
 			args: args{
 				ctx:    context.Background(),
 				src:    "tooth.gif",
@@ -95,7 +95,7 @@ func TestResize(t *testing.T) {
 			errMatcher: its.Nil[error](),
 		},
 		{
-			name: "success (new_year 横長)",
+			name: "success (new_year: landscape)",
 			args: args{
 				ctx:    context.Background(),
 				src:    "new_year.gif",
@@ -109,7 +109,7 @@ func TestResize(t *testing.T) {
 			errMatcher: its.Nil[error](),
 		},
 		{
-			name: "success (miku 縦長、差分最適化)",
+			name: "success (miku: portrait / optimized)",
 			args: args{
 				ctx:    context.Background(),
 				src:    "miku.gif",
@@ -121,7 +121,7 @@ func TestResize(t *testing.T) {
 			errMatcher: its.Nil[error](),
 		},
 		{
-			name: "success (frog 縦長、DisposalBackground + 背景色不整合)",
+			name: "success (frog: portrait / DisposalBackground + wrong background color)",
 			args: args{
 				ctx:    context.Background(),
 				src:    "frog.gif",
@@ -133,7 +133,7 @@ func TestResize(t *testing.T) {
 			errMatcher: its.Nil[error](),
 		},
 		{
-			name: "success (surprised 正方形、空のGlobal Color Table)",
+			name: "success (surprised: square / empty global color table)",
 			args: args{
 				ctx:    context.Background(),
 				src:    "surprised.gif",

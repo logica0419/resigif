@@ -1,36 +1,40 @@
+version: "2"
+
 linters:
-  enable-all: true
+  default: all
   disable:
-    - exportloopref # deprecated
-    - gomnd # deprecated
-    - execinquery # deprecated
     - depguard
     - dogsled
     - godot
+    - mnd
     - nolintlint
 
-issues:
-  exclude-use-default: false
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - containedctx
-        - gochecknoglobals
+  settings:
+    cyclop:
+      max-complexity: 15
+    funlen:
+      lines: -1
+    lll:
+      line-length: 150
+    varnamelen:
+      ignore-names:
+        - tt
+        - i
+        - eg
+    wrapcheck:
+      ignore-sigs:
+        - (*golang.org/x/sync/errgroup.Group).Wait(
+        - (*golang.org/x/sync/semaphore.Weighted).Acquire(
+        - (context.Context).Err(
 
-linters-settings:
-  cyclop:
-    max-complexity: 15
-  funlen:
-    lines: -1
-  lll:
-    line-length: 150
-  varnamelen:
-    ignore-names:
-      - tt
-      - i
-      - eg
-  wrapcheck:
-    ignoreSigs:
-      - (*golang.org/x/sync/errgroup.Group).Wait(
-      - (*golang.org/x/sync/semaphore.Weighted).Acquire(
-      - (context.Context).Err(
+  exclusions:
+    rules:
+      - linters:
+          - containedctx
+          - gochecknoglobals
+        path: _test\.go
+
+formatters:
+  enable:
+    - gci
+    - gofumpt
