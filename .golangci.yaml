@@ -7,7 +7,9 @@ linters:
     - dogsled
     - godot
     - mnd
+    - noinlineerr
     - nolintlint
+    - wsl # deprecated
 
   settings:
     cyclop:

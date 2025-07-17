@@ -64,9 +64,10 @@ func (p *processor) resize(ctx context.Context, src *gif.GIF, width, height int)
 			},
 			BackgroundIndex: src.BackgroundIndex,
 		}
+
+		eg *errgroup.Group
 	)
 
-	var eg *errgroup.Group
 	eg, ctx = errgroup.WithContext(ctx)
 
 	for i, srcFrame := range src.Image {

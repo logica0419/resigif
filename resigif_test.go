@@ -165,7 +165,6 @@ func TestResize(t *testing.T) {
 			t.Parallel()
 
 			got, err := resigif.Resize(tt.args.ctx, mustOpenGif(t, tt.args.src), tt.args.width, tt.args.height, tt.args.opts...)
-
 			if err != nil && overWrite != nil && *overWrite {
 				mustEncodeGif(t, tt.want, got)
 			}
