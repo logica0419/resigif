@@ -10,4 +10,4 @@ require (
 	golang.org/x/sync v0.15.0
 )
 
-require golang.org/x/mod v0.25.0 // indirect
+require golang.org/x/mod v0.26.0 // indirect
