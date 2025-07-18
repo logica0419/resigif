@@ -69,7 +69,7 @@ func main() {
 ## Customization
 
 - Aspect Ratio Preservation
-  - You can choose from `Ignore` or `Maintain`
+  - You can choose from `Ignore`, `Maintain`, `HeightFirst`, or `WidthFirst`
 
 ```go
 dstImg, err := resigif.Resize(
@@ -86,6 +86,22 @@ dstImg, err := resigif.Resize(
   width,
   height,
   resigif.WithAspectRatio(resigif.Ignore),
+)
+
+dstImg, err := resigif.Resize(
+  ctx,
+  srcImg,
+  width,
+  height,
+  resigif.WithAspectRatio(resigif.HeightFirst),
+)
+
+dstImg, err := resigif.Resize(
+  ctx,
+  srcImg,
+  width,
+  height,
+  resigif.WithAspectRatio(resigif.WidthFirst),
 )
 ```
 
