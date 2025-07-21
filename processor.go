@@ -133,9 +133,12 @@ func (p *processor) calculateRatio(srcWidth, srcHeight int, width, height *int) 
 	widthRatio := floatWidth / floatSrcWidth
 	heightRatio := floatHeight / floatSrcHeight
 
-	// If aspect ratio should be maintained, use the smaller ratio
-	//  Update width and height accordingly
-	if p.aspectRatio == Maintain {
+	switch p.aspectRatio {
+	case Ignore:
+		// If aspect ratio should be ignored, use the given width and height
+	case Maintain:
+		// If aspect ratio should be maintained, use the smaller ratio
+		//  Update width and height accordingly
 		if widthRatio < heightRatio {
 			heightRatio = widthRatio
 			*height = int(math.Round(floatSrcHeight * heightRatio))
@@ -143,6 +146,14 @@ func (p *processor) calculateRatio(srcWidth, srcHeight int, width, height *int) 
 			widthRatio = heightRatio
 			*width = int(math.Round(floatSrcWidth * widthRatio))
 		}
+	case WidthFirst:
+		// If width should be prioritized, use widthRatio
+		heightRatio = widthRatio
+		*height = int(math.Round(floatSrcHeight * heightRatio))
+	case HeightFirst:
+		// If height should be prioritized, use heightRatio
+		widthRatio = heightRatio
+		*width = int(math.Round(floatSrcWidth * widthRatio))
 	}
 
 	return widthRatio, heightRatio
