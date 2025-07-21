@@ -81,6 +81,34 @@ func TestResize(t *testing.T) {
 			errMatcher: its.Nil[error](),
 		},
 		{
+			name: "success (bicycle: oblong)",
+			args: args{
+				ctx:    context.Background(),
+				src:    "bicycle.gif",
+				width:  256,
+				height: 0,
+				opts: []resigif.Option{
+					resigif.WithAspectRatio(resigif.WidthFirst),
+				},
+			},
+			want:       "bicycle_width_first_resized.gif",
+			errMatcher: its.Nil[error](),
+		},
+		{
+			name: "success (bicycle: oblong )",
+			args: args{
+				ctx:    context.Background(),
+				src:    "bicycle.gif",
+				width:  0,
+				height: 256,
+				opts: []resigif.Option{
+					resigif.WithAspectRatio(resigif.HeightFirst),
+				},
+			},
+			want:       "bicycle_height_first_resized.gif",
+			errMatcher: its.Nil[error](),
+		},
+		{
 			name: "success (tooth: square、DisposalBackground)",
 			args: args{
 				ctx:    context.Background(),
@@ -165,7 +193,7 @@ func TestResize(t *testing.T) {
 			t.Parallel()
 
 			got, err := resigif.Resize(tt.args.ctx, mustOpenGif(t, tt.args.src), tt.args.width, tt.args.height, tt.args.opts...)
-			if err != nil && overWrite != nil && *overWrite {
+			if err == nil && overWrite != nil && *overWrite {
 				mustEncodeGif(t, tt.want, got)
 			}
 

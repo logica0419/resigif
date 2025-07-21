@@ -23,3 +23,5 @@ var FS embed.FS
 // tooth.gif https://patirabi.com/2021/10/10/061gif/
 
 // surprised.gif https://patirabi.com/2021/10/08/058gif/
+
+//bicycle.gif https://pixabay.com/gifs/bicycle-sports-pixel-art-pedal-4417/
