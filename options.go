@@ -10,9 +10,9 @@ const (
 	Ignore aspectRatioOption = iota
 	// Maintain maintains aspect ratio
 	Maintain
-	// WidthFirst Maintain aspect ratio, prioritizing width.
+	// WidthFirst maintains aspect ratio, prioritizing width
 	WidthFirst
-	// HeightFirst Maintain aspect ratio, prioritizing height.
+	// HeightFirst maintains aspect ratio, prioritizing height
 	HeightFirst
 )
 
