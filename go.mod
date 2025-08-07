@@ -6,7 +6,7 @@ toolchain go1.24.6
 
 require (
 	github.com/youta-t/its v0.6.3
-	golang.org/x/image v0.29.0
+	golang.org/x/image v0.30.0
 	golang.org/x/sync v0.16.0
 )
 
