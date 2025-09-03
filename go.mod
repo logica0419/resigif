@@ -2,7 +2,7 @@ module github.com/logica0419/resigif
 
 go 1.23.8
 
-toolchain go1.25.0
+toolchain go1.25.1
 
 require (
 	github.com/youta-t/its v0.6.3
