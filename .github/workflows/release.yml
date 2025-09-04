@@ -19,7 +19,7 @@ jobs:
       - name: Fetch Tags
         run: git fetch --force --tags
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
       - uses: goreleaser/goreleaser-action@v6
